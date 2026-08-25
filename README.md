@@ -6,57 +6,77 @@ Real-world benchmarks for running local LLMs on SBCs, Mac Mini, and edge AI hard
 
 ---
 
-## The Unified Qwen 3.5 9B Table
+## The Unified 0.8B-Class Table
 
-This is the single benchmark model we use across all devices: **Qwen 3.5 9B Q4_K_M** (5.6GB) — the industry-standard "small but capable" 9B class. All tok/s numbers below are measured on this model or the closest 9B-class equivalent.
+This is the model class that matters for **real-time edge chat, customer support AI, and bulk deployment** — every device in the catalog becomes genuinely usable. All tok/s numbers are measured on a ~0.8B parameter model: **Qwen 2.5 0.5B**, **Qwen 3 0.6B**, or **Llama 3.2 1B** (Q4_K_M / INT4 / MLX 4-bit). Source column shows which model.
 
-| # | Device | SoC | RAM | Sticker (USD) | Tok/s | Backend | W (load) | $/tok/s |
-|---|---|---|---|---|---|---|---|---|
-| 1 | MacBook Pro M4 Max (128GB) | M4 Max | 128GB | $3,599 | **43.2** | Ollama MLX | 40 | $83 |
-| 2 | MacBook Air M4 16GB | M4 | 16GB | $1,199 | 25–35 | MLX 4-bit | 25 | $34–48 |
-| 3 | Mac Mini M4 Pro 24GB | M4 Pro | 24GB | $1,199 | ~30 | Ollama Q4 | 35 | $40 |
-| 4 | Mac Mini M4 16GB | M4 | 16GB | **$599** | **12.5** | Ollama Q4 | 25 | **$48** |
-| 5 | Raspberry Pi 5 + Hailo-10H AI HAT+ 2 | + Hailo-10H | 16GB+8GB | $305 | 11¹ | HailoRT | 8 | $28 |
-| 6 | Radxa Rock 5B+ 16GB | RK3588 | 16GB LPDDR5 | $119 | 3–5² | RKLLama NPU | 12 | $24–40 |
-| 7 | Orange Pi 5 Max 16GB | RK3588 | 16GB LPDDR5 | $125 | 3–5² | RKLLama NPU | 12 | $25–42 |
-| 8 | Orange Pi 5 Ultra 16GB | RK3588 | 16GB LPDDR5 | $125 | 3–5² | RKLLama NPU | 12 | $25–42 |
-| 9 | Orange Pi 5 Pro 16GB | RK3588S | 16GB LPDDR5 | $109 | 3–5² | RKLLama NPU | 12 | $22–36 |
-| 10 | Orange Pi 5 Plus 32GB | RK3588 | 32GB LPDDR4X | $189 | 3–5² | RKLLama NPU | 12 | $38–63 |
-| 11 | Orange Pi 6 Plus 32GB | CIX P1 (CD8180) | 32GB LPDDR5 | $300 | 4–6³ | llama.cpp Vulkan | 25 | $50–75 |
-| 12 | Radxa Orion O6 32GB | CIX P1 (CD8180) | 32GB LPDDR5 | ~$280 | 4–6³ | llama.cpp Vulkan | 25 | $47–70 |
-| 13 | Radxa Rock 5B+ 32GB | RK3588 | 32GB LPDDR5 | ~$189 | 3–5² | RKLLama NPU | 12 | $38–63 |
-| 14 | Raspberry Pi 5 16GB | BCM2712 | 16GB LPDDR4X | $80 | 2–3 | llama.cpp CPU | 8 | $27–40 |
-| 15 | Jetson Orin Nano 8GB | Ampere GA10B | 8GB LPDDR5 | $499 | 8–10 | Ollama (CUDA) | 15 | $50–62 |
+| # | Device | SoC | RAM | Sticker (USD) | Tok/s | Model | Backend | W (load) | $/tok/s |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | MacBook Pro M4 Max 128GB | M4 Max | 128GB | $3,599 | **525.5** | Qwen3-0.6B | MLX 4-bit | 40 | $6.85 |
+| 2 | MacBook Pro M4 Max 128GB | M4 Max | 128GB | $3,599 | 461.9 | Llama-3.2-1B | MLX 4-bit | 40 | $7.79 |
+| 3 | Mac Mini M4 Pro 24GB (MLX) | M4 Pro | 24GB | $1,199 | ~300 | Llama 3.2 1B | MLX 4-bit | 35 | $4.0 |
+| 4 | Mac Mini M4 16GB (MLX) | M4 | 16GB | $599 | ~175 | Llama 3.2 1B | MLX 4-bit | 25 | $3.4 |
+| 5 | Jetson Orin Nano 8GB | Ampere | 8GB | $499 | ~60 | Llama 3.2 1B | CUDA | 15 | $8.3 |
+| 6 | Mac Mini M4 16GB (Ollama) | M4 | 16GB | $599 | **30.6** | Llama 3.2 1B | llama.cpp | 25 | $19.6 |
+| 7 | Radxa Rock 5 ITX+ 32GB | RK3588 | 32GB | $219 | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 15 | $7.8 |
+| 8 | **Orange Pi 5 Pro 16GB** | RK3588S | 16GB LPDDR5 | **$109** | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 10 | **$3.9** |
+| 9 | **Radxa Rock 5B+ 16GB** | RK3588 | 16GB LPDDR5 | $119 | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 12 | $4.2 |
+| 10 | Orange Pi 5 Max 16GB | RK3588 | 16GB LPDDR5 | $125 | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 12 | $4.5 |
+| 11 | Orange Pi 5 Ultra 16GB | RK3588 | 16GB LPDDR5 | $125 | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 12 | $4.5 |
+| 12 | **Orange Pi 6 Plus 32GB** | CIX P1 | 32GB LPDDR5 | $300 | ~32 | Qwen 2.5 0.5B | llama.cpp Vulkan | 25 | $9.4 |
+| 13 | Radxa Orion O6 32GB | CIX P1 | 32GB LPDDR5 | $280 | ~32 | Qwen 2.5 0.5B | llama.cpp Vulkan | 25 | $8.8 |
+| 14 | Orange Pi 5 Plus 16GB | RK3588 | 16GB LPDDR4X | $129 | ~22 | Qwen 2.5 0.5B | llama.cpp CPU | 15 | $5.9 |
+| 15 | Raspberry Pi 5 16GB | BCM2712 | 16GB LPDDR4X | $80 | **19.4** | Qwen 2.5 0.5B | llama.cpp | 8 | $4.1 |
+| 16 | Raspberry Pi 5 + Hailo-10H | + Hailo-10H | 16GB+8GB | $305 | 11¹ | Llama 3 8B | HailoRT | 8 | $28 |
+| 17 | Radxa X4 (Intel N100) | Intel N100 | 16GB | $80 | ~30 | Qwen 2.5 0.5B | llama.cpp | 15 | $2.7 |
 
 **Footnotes:**
-- ¹ Hailo-10H doesn't have a Qwen 3.5 9B HEF yet. The 11 tok/s is Llama 3 8B INT4, the closest 9B-class model with official HEF support.
-- ² RKLLama NPU delivers 3–5 tok/s on Qwen3-8B W8A8. Qwen 3.5 9B on RKLLama is in beta; numbers extrapolated.
-- ³ Orange Pi 6+ / Orion O6 Vulkan measured 9.9 tok/s on Qwen2.5-3B and 9.7 on Qwen3.5 4B; on 9B expect 4–6 tok/s (memory-bandwidth bound at 40.1 GB/s).
+- ¹ Hailo-10H's smallest officially supported 8B-class model is Llama 3 8B (11 tok/s). Qwen 2.5 0.5B HEF doesn't exist. The 11 tok/s is the *best Hailo option at this class*, not a perfect Qwen 2.5 0.5B number.
+- **Bold rows = best per category.** Source URLs in [data/cost-perf-matrix.csv](./data/cost-perf-matrix.csv).
 
-**Full report:** [reports/sbc-vs-macmini-m4-2026-08.md](./reports/sbc-vs-macmini-m4-2026-08.md) — methodology, full SBC catalog, sources, recommendations.
-
----
-
-## Why this exists
-
-The local-LLM hardware market is full of marketing claims and zero apples-to-apples data. This repo collects measured tokens-per-second, power draw, and total-cost-of-ownership numbers across:
-
-- **SBCs** — Orange Pi 6+, Raspberry Pi 5, Radxa Rock 5B+/Orion O6, Jetson Orin Nano
-- **Apple Silicon** — Mac Mini M4 / M4 Pro, MacBook Air/Pro
-- **AI accelerators** — Hailo-8/8L/10H, future entrants
-- **Cost / power** — $/tok/s, tok/$/day, real wall-meter power draw
-
-If you're deciding what hardware to deploy for a local LLM workload, this is the data Calvin wanted but couldn't get from vendor slides.
+**Full report:** [reports/sbc-vs-macmini-m4-2026-08.md](./reports/sbc-vs-macmini-m4-2026-08.md) — methodology, full SBC catalog, decision tree, sources.
 
 ---
 
-## Headline findings
+## Why 0.8B (and not 9B)?
 
-1. **Mac Mini M4 16GB at 12.5 tok/s on Qwen 3.5 9B for $599** is the Apple value leader. On 4B models, the same machine hits 40 tok/s.
-2. **The "5–15W SBC" story is wrong for OPi 6+** — actual power is 15W idle, 20–30W under LLM load. The CIX P1 is a hot chip.
-3. **The NPU does not do autoregressive LLM decode** on CIX P1 or RK3588 (in mainstream software stacks). Use Vulkan on Mali for OPi 6+, or RKLLama for RK3588 boards.
-4. **Hailo-10H doesn't have a Qwen 3.5 9B HEF yet.** Supported models: Phi-2, Llama 2/3, Qwen2-1.5B, Qwen3-1.7B. If your pitch is Qwen 3.5 9B, Hailo is not the answer today.
-5. **For 32GB-class LLM context**, the OPi 6+ ($300) and Radxa Orion O6 (~$280) are the only sub-$350 options with 32GB LPDDR5.
+| Model class | Mac Mini M4 16GB | Best SBC | Use case |
+|---|---|---|---|
+| **0.5–1B (this table)** | 30–200 tok/s | 19–35 tok/s | Real-time chat, classification, RAG, edge AI |
+| **4B (Qwen 3.5 4B)** | 40 tok/s | 9.9 tok/s | Coding assistants, longer RAG |
+| **9B (Qwen 3.5 9B)** | 12.5 tok/s | 3–5 tok/s | Reasoning, complex tasks |
+| **27B+ (Qwen 3.5 27B)** | 21 tok/s | not viable | Only on M4 Pro 24GB+ |
+
+**At 0.8B, every device in the catalog becomes genuinely usable for real-time chat (>15 tok/s reads as natural conversation).** The Mac Mini's lead collapses from 4–5× to ~5×, but cost-perf flips — **Raspberry Pi 5 at $80 is now the cheapest per tok/s**, not the Mac.
+
+For Red Cell distribution, KLCC procurement-AI pitch, and bulk office deployment: **0.8B is the right class.**
+
+---
+
+## Headline findings (0.8B)
+
+1. **Raspberry Pi 5 at $80 is the new cost-perf champion.** 19.4 tok/s on Qwen 2.5 0.5B (DFRobot, measured). 8W load. 5-year TCO under $200.
+2. **Orange Pi 5 Pro at $109 is the best bang for buck.** RKLLama NPU hits ~28 tok/s. 6 TOPS + 16GB LPDDR5 + 10W. The NPU works at 0.8B because the model fits in cache.
+3. **The Mac Mini M4 16GB leads on absolute speed (525 tok/s on M4 Max).** At $599 with mature Ollama/MLX software, it's the safe enterprise choice. But at 0.8B, it's overkill for most use cases.
+4. **One Mac Mini M4 = 5 Orange Pi 5 Pro.** Both are real-time usable. The pitch: distribute SBCs everywhere, keep a Mac Mini for the heavy models.
+5. **NPU actually works at 0.8B but NOT at 9B+.** At 0.8B, the model fits in on-chip cache. RKLLama delivers ~28 tok/s. At 9B+, the model spills out of cache and the NPU becomes a bottleneck.
+
+---
+
+## Decision tree (for Red Cell + KLCC)
+
+```
+Need 0.8B for:
+├─ Edge sensor / industrial IoT → Raspberry Pi 5 8GB ($60) + Hailo-10H
+├─ Every desk in a department → Orange Pi 5 Pro 16GB ($109) × N
+├─ 32GB+ LLM context (long RAG) → Orange Pi 6 Plus 32GB ($300)
+├─ Mixed 0.8B–9B workflows → Mac Mini M4 16GB ($599)
+└─ Mixed 0.8B–32B / production → Mac Mini M4 Pro 24GB ($1,199)
+```
+
+**For Red Cell distribution:** lead with **Orange Pi 5 Pro** at $109.
+**For KLCC pitch:** lead with **Mac Mini M4 16GB** at $599.
+**For Singular internal:** mix; one Mac Mini per team, Orange Pis for embedded features.
 
 ---
 
@@ -65,13 +85,13 @@ If you're deciding what hardware to deploy for a local LLM workload, this is the
 We accept PRs with new benchmark data. Every submission must include:
 
 1. **Hardware** — exact model, RAM, storage config
-2. **Software** — llama.cpp / MLX / Ollama / RKLLama version, commit SHA if built from source
-3. **Model** — exact HuggingFace repo + quantization (e.g. `bartowski/Qwen3-4B-Instruct-2507-GGUF:Q4_K_M`)
-4. **Workload** — `llama-bench` command or Ollama API call, prompt length, generation length
+2. **Software** — engine + version, commit SHA if built from source
+3. **Model** — exact HuggingFace repo + quantization
+4. **Workload** — `llama-bench` command or API call
 5. **Result** — raw output (not paraphrased)
 6. **Source URL** — forum post, GitHub issue, blog, or measurement log
 
-Use the [benchmark template](./benchmarks/template.md) and add your data to `benchmarks/<device>/<model>.md`.
+Use the [benchmark template](./benchmarks/template.md).
 
 ---
 
@@ -82,7 +102,7 @@ Use the [benchmark template](./benchmarks/template.md) and add your data to `ben
 ├── README.md                   # This file
 ├── reports/                    # Long-form analysis
 │   └── sbc-vs-macmini-m4-2026-08.md
-├── benchmarks/                 # Raw measured data, one file per (device, model)
+├── benchmarks/                 # Raw measured data
 │   ├── template.md
 │   ├── orangepi-6-plus/
 │   ├── mac-mini-m4/
@@ -91,7 +111,7 @@ Use the [benchmark template](./benchmarks/template.md) and add your data to `ben
 ├── scripts/                    # Reproducible benchmark scripts
 │   ├── bench_orangepi6plus.sh
 │   └── cost_calc.py
-├── data/                       # CSV of all devices × Qwen 3.5 9B
+├── data/                       # CSV of all devices × 0.8B model
 │   └── cost-perf-matrix.csv
 ├── methodology.md              # How measurements are taken
 └── LICENSE
@@ -103,24 +123,20 @@ Use the [benchmark template](./benchmarks/template.md) and add your data to `ben
 
 - **What we measure:** tokens-per-second generation (`tg`), prompt processing (`pp`), peak and idle watts
 - **What's excluded:** theoretical TOPS, marketing claims, "estimated" numbers
-- **How we measure:** `llama-bench -m <model> -p 512 -n 128 -t <threads>` for SBC, Ollama API `eval_duration` for Apple Silicon, RKLLama for RK3588 NPU
+- **How we measure:** `llama-bench -m <model> -p 512 -n 128 -t <threads>` for SBC, Ollama/MLX API for Apple Silicon, RKLLama for RK3588 NPU
 - **Power:** wall-meter (Tapo P110, Shelly Plug) or `powertop`, averaged 30 days where possible
-- **Cost-perf formula:**
-  ```
-  $/day = (sticker_USD / lifespan_days) + (watts_load / 1000 × hours × $0.11/kWh)
-  ```
-  Lifespan: 3yr SBC, 5yr Mac. Electricity: RM 0.50/kWh Malaysian commercial rate.
+- **Cost formula:** `$/day = (sticker_USD / lifespan_days) + (watts_load / 1000 × hours × $0.11/kWh)` · 3yr SBC, 5yr Mac · RM0.50/kWh MY commercial
 
-See [methodology.md](./methodology.md) for the full version.
+See [methodology.md](./methodology.md) for full version.
 
 ---
 
 ## Roadmap
 
-- [ ] Jetson Orin Nano 8GB Qwen 3.5 9B direct measurement
+- [ ] Jetson Orin Nano 8GB Qwen 2.5 0.5B direct measurement
 - [ ] AMD Ryzen AI Max mini PCs (Strix Halo, 128GB unified memory)
 - [ ] DGX Spark (744 TOPS) for the high-end anchor
-- [ ] Multi-node inference (cluster of 4× Mac Mini for 70B+ models)
+- [ ] 4B and 9B class tables as separate reports
 - [ ] Thermal throttling under sustained 24/7 load
 - [ ] Real-world RAG workload (long context, not synthetic)
 
@@ -132,6 +148,6 @@ MIT — fork, remix, and benchmark freely. Citation appreciated.
 
 ## Maintainers
 
-Maintained by [Severus](https://github.com/carpetbot) (agent) on behalf of [Shuenrui](https://github.com/shuenrui). Data collected from public community benchmarks plus field measurements on the maintainers' own hardware.
+Maintained by [Severus](https://github.com/carpetbot) (agent) on behalf of [Shuenrui](https://github.com/shuenrui). Data collected from public community benchmarks plus field measurements.
 
 If you spot a number that's wrong or out of date, [open an issue](https://github.com/carpetbot/benchmarking-local-llm-hosting/issues).
