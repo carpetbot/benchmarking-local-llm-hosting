@@ -1,0 +1,19 @@
+device,ram_gb,sticker_usd,total_usd,watts_load,model,quant,tok_s_gen,source_url,notes
+OrangePi 6+ 32GB (CPU),32,320,470,25,Qwen2.5-3B,Q5_K_M,4.3,interfacinglinux.com/Vulkan-llama-cpp-Orion-O6,No Vulkan
+OrangePi 6+ 32GB (Vulkan),32,320,470,25,Qwen3.5-4B,Q4_K_M,9.9,interfacinglinux.com/Vulkan-llama-cpp-Orion-O6,Matches Shuenrui 9.7
+OrangePi 6+ 32GB (Vulkan),32,320,470,25,Qwen3-30B-A3B,Q4_K_M,16.13,Radxa-forum/llama-cpp-benchmarks-Orion-O6,7 threads NEON
+OrangePi 6+ 32GB (Vulkan),32,320,470,25,Qwen3-32B,Q4_K_M,1.95,Radxa-forum/llama-cpp-benchmarks-Orion-O6,7 threads
+Raspberry Pi 5 16GB,16,80,230,8,TinyLlama-1.1B,Q4_K_M,18.4,localaimaster.com/llm-raspberry-pi-5,
+Raspberry Pi 5 16GB,16,80,230,8,Phi-3.5-Mini-3.8B,Q4_K_M,7.4,localaimaster.com/llm-raspberry-pi-5,
+Raspberry Pi 5 + AI HAT+ 2 (Hailo-10H),16,305,455,8,Phi-2-2.7B,INT4,19.0,codesota.com/hailo-10h-llms,Official
+Raspberry Pi 5 + AI HAT+ 2 (Hailo-10H),16,305,455,8,Llama-3-8B,INT4,11.0,codesota.com/hailo-10h-llms,Official
+Raspberry Pi 5 + AI HAT+ 2 (Hailo-10H),16,305,455,8,Qwen3-1.7B,A8W4,4.78,codesota.com/hailo-10h-llms,Official
+Mac Mini M4 16GB,16,599,749,25,Qwen-3.5-4B,Q4_K_M,40.0,llmcheck.net/apple-silicon-benchmarks,Ollama MLX
+Mac Mini M4 16GB,16,599,749,25,Qwen3.5-35B-A3B (MoE),Q4_K_M,17.3,modelfit.io/35b-llm-mac-mini-m4-16gb-mmap,mmap trick
+Mac Mini M4 16GB,16,599,749,25,Llama-3.1-8B,Q4_K_M,23,kunalganglani.com/llm-benchmarks,
+Mac Mini M4 Pro 24GB,24,1199,1349,35,Qwen-3-4B,Q4_K_M,84.0,llmcheck.net/apple-silicon-benchmarks,MLX
+Mac Mini M4 Pro 24GB,24,1199,1349,35,Llama-3.1-8B,Q4_K_M,34,kunalganglani.com/llm-benchmarks,Ollama
+Mac Mini M4 Pro 48GB,48,1799,1949,35,Qwen-2.5-32B,Q4_K_M,11.0,kunalganglani.com/llm-benchmarks,
+Mac Mini M4 Pro 64GB,64,2399,2549,35,Qwen3-30B-A3B (MoE),MLX,42.0,llmcheck.net/apple-silicon-benchmarks,
+Mac Mini M4 Max 48GB,48,3199,3349,40,Qwen-2.5-32B,Q4_K_M,22.0,kunalganglani.com/llm-benchmarks,
+Jetson Orin Nano 8GB,8,499,649,15,Qwen2-1.5B,INT4,25.0,codesota.com/hailo-10h-llms (reference),CUDA advantage

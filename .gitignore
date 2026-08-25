@@ -1,0 +1,31 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Build artifacts
+build/
+dist/
+*.o
+*.so
+*.dylib
+*.dll
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Local benchmark outputs (don't commit personal run data unless you intend to PR it)
+bench_results/
+*.bench.json
+bench_output_*.txt
+
+# Secrets and local env
+.env
+.env.local
+config.local.yaml

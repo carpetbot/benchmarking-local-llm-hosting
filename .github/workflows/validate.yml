@@ -1,0 +1,37 @@
+name: Validate benchmark data
+
+on:
+  pull_request:
+    paths:
+      - 'data/**'
+      - 'benchmarks/**'
+      - 'scripts/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate CSV format
+        run: |
+          python3 -c "
+          import csv
+          with open('data/cost-perf-matrix.csv') as f:
+              reader = csv.DictReader(f)
+              required = ['device', 'tok_s_gen', 'source_url']
+              for i, row in enumerate(reader, 1):
+                  missing = [c for c in required if not row.get(c)]
+                  if missing:
+                      raise ValueError(f'Row {i} missing: {missing}')
+                  if not row['source_url'].startswith('http'):
+                      raise ValueError(f'Row {i} invalid source_url: {row[\"source_url\"]}')
+              print(f'OK: {i} rows validated')
+          "
+
+      - name: Check shell scripts
+        run: |
+          for f in scripts/*.sh; do
+            bash -n "$f" || { echo "Syntax error in $f"; exit 1; }
+            echo "OK: $f"
+          done
