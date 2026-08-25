@@ -1,19 +1,21 @@
-device,ram_gb,sticker_usd,total_usd,watts_load,model,quant,tok_s_gen,source_url,notes
-OrangePi 6+ 32GB (CPU),32,320,470,25,Qwen2.5-3B,Q5_K_M,4.3,interfacinglinux.com/Vulkan-llama-cpp-Orion-O6,No Vulkan
-OrangePi 6+ 32GB (Vulkan),32,320,470,25,Qwen3.5-4B,Q4_K_M,9.9,interfacinglinux.com/Vulkan-llama-cpp-Orion-O6,Matches Shuenrui 9.7
-OrangePi 6+ 32GB (Vulkan),32,320,470,25,Qwen3-30B-A3B,Q4_K_M,16.13,Radxa-forum/llama-cpp-benchmarks-Orion-O6,7 threads NEON
-OrangePi 6+ 32GB (Vulkan),32,320,470,25,Qwen3-32B,Q4_K_M,1.95,Radxa-forum/llama-cpp-benchmarks-Orion-O6,7 threads
-Raspberry Pi 5 16GB,16,80,230,8,TinyLlama-1.1B,Q4_K_M,18.4,localaimaster.com/llm-raspberry-pi-5,
-Raspberry Pi 5 16GB,16,80,230,8,Phi-3.5-Mini-3.8B,Q4_K_M,7.4,localaimaster.com/llm-raspberry-pi-5,
-Raspberry Pi 5 + AI HAT+ 2 (Hailo-10H),16,305,455,8,Phi-2-2.7B,INT4,19.0,codesota.com/hailo-10h-llms,Official
-Raspberry Pi 5 + AI HAT+ 2 (Hailo-10H),16,305,455,8,Llama-3-8B,INT4,11.0,codesota.com/hailo-10h-llms,Official
-Raspberry Pi 5 + AI HAT+ 2 (Hailo-10H),16,305,455,8,Qwen3-1.7B,A8W4,4.78,codesota.com/hailo-10h-llms,Official
-Mac Mini M4 16GB,16,599,749,25,Qwen-3.5-4B,Q4_K_M,40.0,llmcheck.net/apple-silicon-benchmarks,Ollama MLX
-Mac Mini M4 16GB,16,599,749,25,Qwen3.5-35B-A3B (MoE),Q4_K_M,17.3,modelfit.io/35b-llm-mac-mini-m4-16gb-mmap,mmap trick
-Mac Mini M4 16GB,16,599,749,25,Llama-3.1-8B,Q4_K_M,23,kunalganglani.com/llm-benchmarks,
-Mac Mini M4 Pro 24GB,24,1199,1349,35,Qwen-3-4B,Q4_K_M,84.0,llmcheck.net/apple-silicon-benchmarks,MLX
-Mac Mini M4 Pro 24GB,24,1199,1349,35,Llama-3.1-8B,Q4_K_M,34,kunalganglani.com/llm-benchmarks,Ollama
-Mac Mini M4 Pro 48GB,48,1799,1949,35,Qwen-2.5-32B,Q4_K_M,11.0,kunalganglani.com/llm-benchmarks,
-Mac Mini M4 Pro 64GB,64,2399,2549,35,Qwen3-30B-A3B (MoE),MLX,42.0,llmcheck.net/apple-silicon-benchmarks,
-Mac Mini M4 Max 48GB,48,3199,3349,40,Qwen-2.5-32B,Q4_K_M,22.0,kunalganglani.com/llm-benchmarks,
-Jetson Orin Nano 8GB,8,499,649,15,Qwen2-1.5B,INT4,25.0,codesota.com/hailo-10h-llms (reference),CUDA advantage
+device,category,soc,ram_gb,sticker_usd,watts_load,model,quant,tok_s_gen,backend,source_url,notes
+Mac Mini M4 16GB,apple,M4,16,599,25,Qwen 3.5 9B,Q4,12.5,Ollama,https://ollama.com/batiai/qwen3.5-9b,Best Apple value 9B
+MacBook Air M4 16GB,apple,M4,16,1199,25,Qwen 3.5 9B,MLX 4-bit,30,MLX,https://willitrunai.com/blog/qwen-3-5-mlx-apple-silicon-guide,Range 25-35 tok/s
+Mac Mini M4 Pro 24GB,apple,M4 Pro,24,1199,35,Qwen 3.5 9B,Q4,30,Ollama,https://llmcheck.net/benchmarks,Estimated from M4 scaling
+Mac Mini M4 Pro 64GB,apple,M4 Pro,64,2399,35,Qwen 3.5 9B,MLX,38,MLX,https://llmcheck.net/benchmarks,MoE advantage
+MacBook Pro M4 Max 128GB,apple,M4 Max,128,3599,40,Qwen 3.5 9B,MLX,43.2,Ollama,https://ollama.com/batiai/qwen3.5-9b,Fastest 9B measured
+OrangePi 5 Pro 16GB,sbc,RK3588S,16,109,12,Qwen3-8B,W8A8,3.5,RKLLama NPU,https://www.sngular.com/insights/471,Cheapest overall SBC
+OrangePi 5 Plus 16GB,sbc,RK3588,16,129,12,Qwen3-8B,W8A8,3.5,RKLLama NPU,https://www.sngular.com/insights/471,LPDDR4X
+OrangePi 5 Ultra 16GB,sbc,RK3588,16,125,12,Qwen3-8B,W8A8,3.5,RKLLama NPU,https://www.sngular.com/insights/471,HDMI in
+OrangePi 5 Max 16GB,sbc,RK3588,16,125,12,Qwen3-8B,W8A8,4,RKLLama NPU,https://www.sngular.com/insights/471,Best 16GB SBC
+OrangePi 5 Plus 32GB,sbc,RK3588,32,189,12,Qwen3-8B,W8A8,4,RKLLama NPU,https://www.sngular.com/insights/471,Cheap 32GB
+OrangePi 6 Plus 32GB,sbc,CIX P1 CD8180,32,300,25,Qwen 3.5 9B,Q4_K_M,5,llama.cpp Vulkan,https://interfacinglinux.com/community/sbcsoftware/vulkan-powered-llama-cpp-on-the-orion-o6-and-o6n,Best 32GB+ LLM context
+Radxa Rock 5B+ 16GB,sbc,RK3588,16,119,12,Qwen3-8B,W8A8,4,RKLLama NPU,https://www.cnx-software.com/2024/07/27/radxa-rock-5b-plus-sbc-lpddr5-memory-emmc-flash-wifi-6-two-m-2-m-key-sockets-4g-lte-5g,Best Linux support SBC
+Radxa Rock 5B+ 24GB,sbc,RK3588,24,159,12,Qwen3-8B,W8A8,4,RKLLama NPU,https://www.cnx-software.com/2024/07/27/radxa-rock-5b-plus-sbc-lpddr5-memory-emmc-flash-wifi-6-two-m-2-m-key-sockets-4g-lte-5g,24GB option
+Radxa Rock 5B+ 32GB,sbc,RK3588,32,189,12,Qwen3-8B,W8A8,4,RKLLama NPU,est,32GB option
+Radxa Rock 5 ITX+ 32GB,sbc,RK3588,32,219,15,Qwen3-8B,W8A8,4,RKLLama NPU,est,Mini-ITX form factor
+Radxa Rock 5T 32GB,sbc,RK3588,32,249,15,Qwen3-8B,W8A8,4,RKLLama NPU,est,Industrial SBC
+Radxa Orion O6 32GB,sbc,CIX P1 CD8180,32,280,25,Qwen 3.5 9B,Q4_K_M,5,llama.cpp Vulkan,https://forum.radxa.com/t/llama-cpp-benchmarks/27813,Same SoC as OPi 6+
+Raspberry Pi 5 16GB,sbc,BCM2712,16,80,8,Qwen 2.5 7B,Q4_K_M,2.5,llama.cpp CPU,https://localaimaster.com/blog/llm-raspberry-pi-5,Cheapest 16GB
+Raspberry Pi 5 + Hailo-10H AI HAT+ 2,sbc+accel,BCM2712+Hailo,16+8,305,8,Llama 3 8B,INT4,11,HailoRT,https://www.codesota.com/embedded-ai/hailo-10h-llms,Best $/day at 8W
+Jetson Orin Nano 8GB,sbc,NVIDIA Ampere,8,499,15,Qwen2-1.5B,INT4,25,CUDA Ollama,https://www.codesota.com/embedded-ai/hailo-10h-llms,CUDA advantage 5-10x
