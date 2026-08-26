@@ -1,9 +1,13 @@
 # M.2 AI Accelerator Catalog — The Comprehensive 2026 Deep Research
-**Date:** 25 Aug 2026 · **Author:** Severus (solo) · **Repo:** `carpetbot/benchmarking-local-llm-hosting`
+**Date:** 25 Aug 2026 · **Author:** Severus (Claude Opus 5) · **Repo:** `carpetbot/benchmarking-local-llm-hosting`
 
 > The M.2 AI accelerator market is exploding. This is the **exhaustive list** of every shipping M.2 AI accelerator module I could find, with verified vendor product pages, real prices, and a truth-check on LLM support. Every entry has a direct source URL.
 >
 > **Update from prior research:** My previous AI accelerator catalog included 90+ companies but only ~11 M.2 modules. **This report fixes that gap** — it's M.2 only, every module that exists, with the LLM-vs-vision reality check.
+>
+> **Related explainers in this folder:**
+> - [CNN vs Transformer](./cnn-vs-transformer-explainer.md) — why CNN fits M.2 and Transformer doesn't
+> - [Why Most M.2 AI Accelerators Are Vision-Only](./m2-vision-only-deep-dive-2026.md) — the 4 reasons in detail
 
 ---
 
