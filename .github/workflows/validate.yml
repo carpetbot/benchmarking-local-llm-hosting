@@ -6,6 +6,8 @@ on:
       - 'data/**'
       - 'benchmarks/**'
       - 'scripts/**'
+  push:
+    branches: [main]
 
 jobs:
   validate:
@@ -13,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate CSV format
+      - name: Validate legacy CSV format
         run: |
           python3 -c "
           import csv
@@ -24,14 +26,80 @@ jobs:
                   missing = [c for c in required if not row.get(c)]
                   if missing:
                       raise ValueError(f'Row {i} missing: {missing}')
-                  if not row['source_url'].startswith('http'):
-                      raise ValueError(f'Row {i} invalid source_url: {row[\"source_url\"]}')
               print(f'OK: {i} rows validated')
           "
+
+      - name: Enforce evidence labelling
+        run: |
+          python3 <<'PY'
+          import csv, glob, sys
+
+          VALID = {'MEASURED-FIRST-PARTY', 'MEASURED', 'ESTIMATED',
+                   'ESTIMATED-DISPUTED', 'RETRACTED'}
+          errors = []
+
+          for path in glob.glob('data/*first-party*.csv'):
+              with open(path) as f:
+                  rows = list(csv.DictReader(f))
+              if not rows:
+                  errors.append(f'{path}: empty'); continue
+              if 'evidence' not in rows[0]:
+                  errors.append(f'{path}: missing required "evidence" column'); continue
+
+              for i, r in enumerate(rows, 2):
+                  ev = (r.get('evidence') or '').strip()
+                  dev = r.get('device', '?')
+
+                  if ev not in VALID:
+                      errors.append(f'{path}:{i} [{dev}] bad evidence "{ev}" (allowed: {sorted(VALID)})')
+                      continue
+
+                  # Anything claiming measurement must name where it came from.
+                  if ev in ('MEASURED', 'MEASURED-FIRST-PARTY'):
+                      src = (r.get('source_url') or '').strip()
+                      if not src:
+                          errors.append(f'{path}:{i} [{dev}] {ev} with no source_url')
+                      elif ev == 'MEASURED' and not src.startswith('http'):
+                          errors.append(f'{path}:{i} [{dev}] third-party MEASURED needs an http source, got "{src}"')
+
+                  # First-party rows must identify the machine and the date.
+                  if ev == 'MEASURED-FIRST-PARTY':
+                      for col in ('machine_id', 'measured_date'):
+                          if not (r.get(col) or '').strip():
+                              errors.append(f'{path}:{i} [{dev}] MEASURED-FIRST-PARTY missing {col}')
+
+                  # KV-cache trap guard: prefill >20x decode on CPU means a cache hit.
+                  try:
+                      pf = float(r.get('prefill_tok_s') or 0)
+                      dc = float(r.get('tok_s_gen') or 0)
+                      backend = (r.get('backend') or '').lower()
+                      cold = (r.get('prefill_cold_verified') or '').lower()
+                      if pf and dc and 'cpu' in backend and pf > dc * 20 and not cold.startswith('yes'):
+                          errors.append(
+                              f'{path}:{i} [{dev}] prefill {pf} is >20x decode {dc} on a CPU backend '
+                              f'without prefill_cold_verified — likely a KV-cache hit. '
+                              f'See methodology.md "the KV-cache trap".')
+                  except ValueError:
+                      pass
+
+          if errors:
+              print('EVIDENCE VALIDATION FAILED\n')
+              for e in errors:
+                  print('  -', e)
+              sys.exit(1)
+          print('OK: evidence labelling valid')
+          PY
 
       - name: Check shell scripts
         run: |
           for f in scripts/*.sh; do
             bash -n "$f" || { echo "Syntax error in $f"; exit 1; }
+            echo "OK: $f"
+          done
+
+      - name: Check python scripts compile
+        run: |
+          for f in scripts/*.py; do
+            python3 -m py_compile "$f" || { echo "Syntax error in $f"; exit 1; }
             echo "OK: $f"
           done

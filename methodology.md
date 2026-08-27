@@ -107,6 +107,83 @@ PRs welcome. Use the [template](../benchmarks/template.md). Required fields:
 5. Raw output (paste the actual numbers, not summaries)
 6. Source URL (where the data was first published)
 
+## ⚠️ MANDATORY: cold prefill (the KV-cache trap)
+
+**Read this before submitting any prefill / prompt-processing number.**
+
+llama.cpp and ollama reuse the KV cache when a prompt repeats. `prompt_eval_duration`
+then measures a **cache hit**, not prefill compute. Measured on our CIX P1 CD8160,
+qwen3:8b, 2,232-token prompt:
+
+| condition | reported prefill |
+|---|---|
+| Cache hit (identical prompt, 2nd run) | **7,962.74 tok/s** |
+| Median of 2 repeats | 2,899.71 tok/s |
+| **Cold, unique prefix** | **8.13 tok/s** |
+
+A **979× overstatement**.
+
+**The trap is counterintuitive:** *running repeats for statistical rigor is what
+introduces it.* Our single-run measurements were cold and correct; adding repeats
+made the numbers worse while looking more rigorous.
+
+**Required practice:**
+1. Prepend a unique token (timestamp, counter) to every run so no two prompts match.
+2. Or restart the server between runs.
+3. **Sanity check before believing any number:** on CPU inference, if prefill exceeds
+   roughly **20× your measured decode rate**, you are timing a cache, not the model.
+
+Reference implementation: [`scripts/bench_cix_p1_v2.py`](../scripts/bench_cix_p1_v2.py).
+Isolation probe: [`scripts/probe_prefill.py`](../scripts/probe_prefill.py).
+
+## MANDATORY: report prefill and decode separately
+
+They are different physics and they are the axis vendors deliberately merge.
+
+- **Prefill** (prompt processing / `pp`) scales with compute. It is the wait before the
+  first token. On our board an 8B model with a 2.2k system prompt takes **4 min 37 s**
+  before emitting anything.
+- **Decode** (token generation / `tg`) scales with memory bandwidth and **active**
+  parameters. It is what "tok/s" usually means.
+
+A single number that does not say which one it is, at what context length, is not a
+benchmark. **Always report context length alongside both.**
+
+## MANDATORY: state which engine actually ran
+
+Never assume the accelerator engaged. Our repo listed this board as "llama.cpp Vulkan"
+for months; the ollama logs said `offloaded 0/49 layers to GPU` — 100% CPU.
+
+Paste the offload line from your runtime's own log. If you cannot produce it, label the
+backend `unverified`.
+
+Related: vendor TOPS figures are frequently unreachable for LLM work. The CIX P1
+advertises 45 TOPS combined, but the Zhouyi NPU does not perform autoregressive decode
+at all, and no mainstream runtime routes to NPUs. **Never record a TOPS number as an
+LLM performance claim.**
+
+## Evidence labelling
+
+Every row in `data/*.csv` must carry an `evidence` value:
+
+| label | meaning |
+|---|---|
+| `MEASURED-FIRST-PARTY` | we ran it, on hardware we own, harness in this repo |
+| `MEASURED` | third party ran it, named source URL, reproducible method |
+| `ESTIMATED` | inferred or scaled — **must be visibly labelled wherever displayed** |
+| `ESTIMATED-DISPUTED` | estimate that conflicts with a measurement |
+| `RETRACTED` | previously published, now disproven — **kept visible, not deleted** |
+
+An unsourced row is a liability, not a data point. Either measure it, cite it, or delete
+it. Copying an estimate from an older revision and dropping the label is fabrication.
+
+## Corrections policy
+
+When a number here is disproven, we publish a corrected row and **leave the retraction
+visible**. We do not silently edit. See the
+[Orange Pi 6 Plus correction log](../benchmarks/orangepi-6-plus/README.md#-corrections-issued-2026-08-27)
+for the format — four wrong attributes on a board we now own, published in full.
+
 ## Known limitations
 
 - **Build flags matter.** llama.cpp without NEON/SIMD on aarch64 runs ~30% slower than with proper flags. If you see a number that's much lower than community reports, check the build.
