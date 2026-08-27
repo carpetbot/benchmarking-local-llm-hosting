@@ -1,0 +1,14 @@
+{
+  "prompt_eval_count": 2232,
+  "prompt_eval_duration": 280305352,
+  "eval_count": 32,
+  "eval_duration": 8033536886,
+  "load_duration": 304757604,
+  "total_duration": 8650727378,
+  "wall_clock_s": 8.86,
+  "reported_prefill_tok_s": 7962.74,
+  "sum_of_parts_s": 8.62,
+  "total_duration_s": 8.65,
+  "unaccounted_s": 0.03,
+  "wall_derived_prefill_tok_s": 2692.19
+}
