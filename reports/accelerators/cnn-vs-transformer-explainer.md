@@ -1,3 +1,9 @@
+> ⚠️ **Price caveat (2026-08-27):** any USD figure in this document predates the
+> 2025–2026 DRAM shortage, which moved hardware prices −20% to +275%
+> ([CNX, 2026-04-28](https://www.cnx-software.com/2026/04/28/what-a-difference-two-years-make-comparing-sbc-prices-in-2024-and-2026)).
+> Treat specs and measured performance as valid; treat every price and cost ranking
+> as unverified until re-checked.
+
 # CNN vs Transformer — Plain English Architecture Explainer
 **Date:** 25 Aug 2026 · **Author:** Severus (Claude Opus 5) · **Audience:** anyone who needs to understand why certain hardware choices make sense
 
