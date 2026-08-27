@@ -184,6 +184,34 @@ visible**. We do not silently edit. See the
 [Orange Pi 6 Plus correction log](../benchmarks/orangepi-6-plus/README.md#-corrections-issued-2026-08-27)
 for the format — four wrong attributes on a board we now own, published in full.
 
+## MANDATORY: date every price, and treat prices as perishable
+
+Performance numbers age slowly. **Prices age in weeks.**
+
+Between late 2025 and April 2026 the DRAM shortage moved this market by −20% to
+**+275%**. The Raspberry Pi 5 16GB went $80 → $299.99. The Radxa X4 went $79.96 →
+$265.99. The $599 Mac Mini M4 SKU was discontinued. Every cost-perf ranking this
+repo published before 2026-08-27 was void as a result — not because any measurement
+was wrong, but because the denominator moved.
+
+**Required for any row carrying a price:**
+
+| column | rule |
+|---|---|
+| `sticker_usd` | leave **empty** rather than guess. An unsourced price is worse than none. |
+| `price_source` | URL. Vendor page, or a dated article that quotes the vendor. |
+| `price_date` | when that price was observed. Not when you wrote the row. |
+| `price_status` | `SOURCED` / `REPRICED from $X` / `STALE` / `UNPRICED` |
+
+**Never bundle a price you did not source.** While repricing this repo we nearly
+published a "$524.99" Pi 5 + Hailo-10H bundle built from a real Pi price and an
+*invented* $225 accelerator price. It was caught and the row is now `UNPRICED`.
+A fabricated component price inside a plausible total is the hardest error to spot
+downstream.
+
+**Re-check cadence:** any cost conclusion older than ~3 months should be treated as
+unverified. State a re-check date next to every ranking.
+
 ## Known limitations
 
 - **Build flags matter.** llama.cpp without NEON/SIMD on aarch64 runs ~30% slower than with proper flags. If you see a number that's much lower than community reports, check the build.

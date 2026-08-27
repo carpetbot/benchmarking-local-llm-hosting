@@ -1,3 +1,19 @@
+> # ⚠️ SUPERSEDED ON COST — 2026-08-27
+>
+> **Every price in this report is stale.** The DRAM shortage repriced the SBC market
+> by −20% to **+275%** between late 2025 and April 2026. The Raspberry Pi 5 16GB went
+> from $80 to **$299.99** ([Geerling, 2026-04-01](https://www.jeffgeerling.com/blog/2026/dram-pricing-is-killing-the-hobbyist-sbc-market));
+> the Radxa X4 went $79.96 → **$265.99** ([CNX, 2026-04-28](https://www.cnx-software.com/2026/04/28/what-a-difference-two-years-make-comparing-sbc-prices-in-2024-and-2026));
+> the $599 Mac Mini M4 SKU was **discontinued** ([MacRumors, 2026-05-01](https://www.macrumors.com/2026/05/01/mac-mini-now-starts-at-799)).
+>
+> Two headline claims from this era are **retracted**: "Pi 5 at $80 is the cost-perf
+> champion" and "Orange Pi 5 Pro at $109 / ~28 tok/s NPU" (the 28 was unsourced and
+> copy-pasted across 8 boards spanning 3 SoCs).
+>
+> **Performance figures that were measured remain valid. Every cost ranking is void.**
+> Current data: [README](../README.md) ·
+> [first-party report](./arm-sbc-local-llm-first-party-2026-08-27.md)
+
 # SBC vs Mac Mini M4 — Cost-Performance for Local LLM Hosting (0.8B class)
 **Date:** 25 Aug 2026 · **Benchmark model class:** ~0.8B parameters (Qwen 2.5 0.5B, Qwen 3 0.6B, Llama 3.2 1B) — the **edge-AI sweet spot**
 **Prepared for:** Calvin (Impossible / Singular) · Red Cell SBC distribution + KLCC procurement-AI pitch

@@ -82,6 +82,16 @@ jobs:
                   except ValueError:
                       pass
 
+                  # Price provenance: a price without a source is worse than none.
+                  price = (r.get('sticker_usd') or '').strip()
+                  psrc = (r.get('price_source') or '').strip()
+                  pstat = (r.get('price_status') or '').strip()
+                  if price and 'price_status' in r:
+                      if not psrc and not pstat.startswith(('STALE', 'UNPRICED')):
+                          errors.append(f'{path}:{i} [{dev}] price ${price} with no price_source '
+                                        f'and not flagged STALE. See methodology.md '
+                                        f'"date every price".')
+
           if errors:
               print('EVIDENCE VALIDATION FAILED\n')
               for e in errors:

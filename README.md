@@ -14,91 +14,80 @@ Real-world benchmarks for running local LLMs on SBCs, Mac Mini, and edge AI hard
 
 ---
 
-## The Unified 0.8B-Class Table
+## ⚠️ 2026 PRICE COLLAPSE — this table's cost rankings are void
 
-This is the model class that matters for **real-time edge chat, customer support AI, and bulk deployment** — every device in the catalog becomes genuinely usable. All tok/s numbers are measured on a ~0.8B parameter model: **Qwen 2.5 0.5B**, **Qwen 3 0.6B**, or **Llama 3.2 1B** (Q4_K_M / INT4 / MLX 4-bit). Source column shows which model.
+**Read this before using any number below.** The DRAM shortage repriced the entire
+SBC market between late 2025 and April 2026. **Every price this repo originally
+published is stale**, and the two headline "cost-perf champion" claims are dead.
 
-| # | Device | SoC | RAM | Sticker (USD) | Tok/s | Model | Backend | W (load) | $/tok/s |
-|---|---|---|---|---|---|---|---|---|---|
-| 1 | MacBook Pro M4 Max 128GB | M4 Max | 128GB | $3,599 | **525.5** | Qwen3-0.6B | MLX 4-bit | 40 | $6.85 |
-| 2 | MacBook Pro M4 Max 128GB | M4 Max | 128GB | $3,599 | 461.9 | Llama-3.2-1B | MLX 4-bit | 40 | $7.79 |
-| 3 | Mac Mini M4 Pro 24GB (MLX) | M4 Pro | 24GB | $1,199 | ~300 | Llama 3.2 1B | MLX 4-bit | 35 | $4.0 |
-| 4 | Mac Mini M4 16GB (MLX) | M4 | 16GB | $599 | ~175 | Llama 3.2 1B | MLX 4-bit | 25 | $3.4 |
-| 5 | Jetson Orin Nano 8GB | Ampere | 8GB | $499 | ~60 | Llama 3.2 1B | CUDA | 15 | $8.3 |
-| 6 | Mac Mini M4 16GB (Ollama) | M4 | 16GB | $599 | **30.6** | Llama 3.2 1B | llama.cpp | 25 | $19.6 |
-| 7 | Radxa Rock 5 ITX+ 32GB | RK3588 | 32GB | $219 | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 15 | $7.8 |
-| 8 | **Orange Pi 5 Pro 16GB** | RK3588S | 16GB LPDDR5 | **$109** | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 10 | **$3.9** |
-| 9 | **Radxa Rock 5B+ 16GB** | RK3588 | 16GB LPDDR5 | $119 | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 12 | $4.2 |
-| 10 | Orange Pi 5 Max 16GB | RK3588 | 16GB LPDDR5 | $125 | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 12 | $4.5 |
-| 11 | Orange Pi 5 Ultra 16GB | RK3588 | 16GB LPDDR5 | $125 | ~28 | Qwen 2.5 0.5B | RKLLama NPU | 12 | $4.5 |
-| 12 | **Orange Pi 6 Plus 32GB** | CIX P1 **CD8160** | 32GB LPDDR5 | **$269** | **27.4** | Qwen3-0.6B | llama.cpp **CPU** ⁴ | 25³ | **$9.8** |
-| 13 | Radxa Orion O6 32GB | CIX P1 CD8180 | 32GB LPDDR5 | $280 | ~32² | Qwen 2.5 0.5B | llama.cpp Vulkan | 25 | $8.8 |
-| 14 | Orange Pi 5 Plus 16GB | RK3588 | 16GB LPDDR4X | $129 | ~22 | Qwen 2.5 0.5B | llama.cpp CPU | 15 | $5.9 |
-| 15 | Raspberry Pi 5 16GB | BCM2712 | 16GB LPDDR4X | $80 | **19.4** | Qwen 2.5 0.5B | llama.cpp | 8 | $4.1 |
-| 16 | Raspberry Pi 5 + Hailo-10H | + Hailo-10H | 16GB+8GB | $305 | 11¹ | Llama 3 8B | HailoRT | 8 | $28 |
-| 17 | Radxa X4 (Intel N100) | Intel N100 | 16GB | $80 | ~30 | Qwen 2.5 0.5B | llama.cpp | 15 | $2.7 |
+| device | price in old table | Aug 2026 | change | source |
+|---|---|---|---|---|
+| Raspberry Pi 5 16GB | $80 | **$299.99** | **+275%** | [Geerling, 2026-04-01](https://www.jeffgeerling.com/blog/2026/dram-pricing-is-killing-the-hobbyist-sbc-market) |
+| Raspberry Pi 5 8GB | $60 | **$175** | +192% | [CNX, 2026-04-28](https://www.cnx-software.com/2026/04/28/what-a-difference-two-years-make-comparing-sbc-prices-in-2024-and-2026) |
+| Radxa X4 (N100) 8GB | $79.96 | **$265.99** | **+233%** | CNX, 2026-04-28 |
+| Orange Pi 5 Ultra 16GB | $125 | **$309** | +147% | CNX, 2026-04-28 |
+| Radxa Rock 5B+ 8GB | $90 | **$129.99** (sold out) | +44% | CNX, 2026-04-28 |
+| Mac Mini M4 16GB | $599 | **$799** | +33% | [MacRumors, 2026-05-01](https://www.macrumors.com/2026/05/01/mac-mini-now-starts-at-799) — $599 SKU discontinued |
+| Jetson Orin Nano Super | $499 | **$399** | −20% | [HW Busters](https://hwbusters.com/news/nvidia-jetson-prices-jump-up-to-101-the-249-orin-nano-super-is-now-399) — NVIDIA repriced $249→$399; our $499 was the *old* non-Super kit |
+| **Orange Pi 6 Plus 32GB** | $300 | **$268.89** | −10% | [CNX, 2025-10-15](https://www.cnx-software.com/2025/10/15/orange-pi-6-plus-cix-p1-sbc-64gb-lpddr5-45-tops-ai-performance) |
 
-**Footnotes:**
-- ¹ Hailo-10H's smallest officially supported 8B-class model is Llama 3 8B (11 tok/s). Qwen 2.5 0.5B HEF doesn't exist. The 11 tok/s is the *best Hailo option at this class*, not a perfect Qwen 2.5 0.5B number.
-- ² **Estimated, not measured.** Carried over from an earlier revision; no source. Treat as unverified.
-- ³ Power is third-party (Tao of Mac); we have not metered this board ourselves.
-- ⁴ **Corrected 2026-08-27.** This row previously read "CD8180 / llama.cpp Vulkan / ~32 tok/s / $300" — all four wrong. Our board is a **CD8160**, ollama offloads **0 layers to GPU** (100% CPU), measured **27.38 tok/s**, and the price is **$268.89**. See the [correction log](./benchmarks/orangepi-6-plus/README.md#-corrections-issued-2026-08-27).
-- **Bold rows = best per category.** Source URLs in [data/cost-perf-matrix.csv](./data/cost-perf-matrix.csv).
+Jeff Geerling's read, which we agree with:
+> *"Unless the DRAM pricing situation changes radically, the hobbyist SBC market is
+> dying — or at least on life support. LPDDR chips now account for the majority of
+> board cost."*
 
-**Full report:** [reports/sbc-vs-macmini-m4-2026-08.md](./reports/sbc-vs-macmini-m4-2026-08.md) — methodology, full SBC catalog, decision tree, sources.
+### Two dead claims, retracted
+
+**❌ "Raspberry Pi 5 at $80 is the new cost-perf champion."**
+The tok/s (19.4, DFRobot) is real. The price is **2.5–3.7× stale**.
+$/tok/s: $4.12 → **$15.46**. The claim is void.
+
+**❌ "Orange Pi 5 Pro at $109 is the best bang for buck — RKLLama NPU ~28 tok/s."**
+That 28 was `ESTIMATED` with **no source**, and it was copy-pasted across **8 different
+boards spanning 3 SoCs**. Real published RK3588 NPU figures:
+
+| model | quant | tok/s | source |
+|---|---|---|---|
+| Qwen2 0.5B | W8A8 | **42.58** | Rockchip official (via tinycomputers.io) |
+| TinyLlama 1.1B | W8A8 | 10–15 | Rockchip official |
+| Qwen2.5 1.5B | W4A16 | 19.55 | [Hackster](https://www.hackster.io/HanzoHuang/run-an-llm-on-rk3576-rk3588-with-one-command-6f4f77) |
+| Qwen3 1.7B | W4A16 | 13.31 | Hackster |
+| Qwen3 4B | W4A16 | 8.30 | Hackster |
+
+The "~28" matches **none** of them — it looks like an average across different models,
+quantizations and SoCs, which must never be averaged. Claim withdrawn.
 
 ---
 
----
+## The honest table: both price AND tok/s sourced
 
-## 🔬 First-party lab: CIX P1 CD8160 (2026-08-27)
+Only three rows in this entire repo survive that test today.
 
-We now own an **Orange Pi 6 Plus 32GB ($268.89)** and measure on it directly.
-Full data: [benchmarks/orangepi-6-plus](./benchmarks/orangepi-6-plus/README.md) ·
-Report: [reports/arm-sbc-local-llm-first-party-2026-08-27.md](./reports/arm-sbc-local-llm-first-party-2026-08-27.md)
+| # | device | price (dated) | tok/s | $/tok/s | evidence |
+|---|---|---|---|---|---|
+| 1 | **Orange Pi 6 Plus 32GB** (ours) | $268.89 (2025-10) | **27.38** | **$9.82** | `MEASURED-FIRST-PARTY` |
+| 2 | Raspberry Pi 5 16GB | $299.99 (2026-04) | 19.40 | $15.46 | tok/s measured (DFRobot) |
+| 3 | Mac Mini M4 16GB (Ollama) | $799 (2026-05) | 30.60 | $26.11 | tok/s measured (Geeky Gadgets) |
 
-Conditions: 100% CPU (0 layers offloaded), no swap, **cold prefill**, Q4_K_M, 4096 ctx.
+**The board we own now leads on cost-perf** — not because it got faster, but because
+everything else got expensive. That reversal was invisible while the Pi was priced at $80.
 
-| model | active | disk | peak RSS | ctx | prefill tok/s | decode tok/s |
-|---|---|---|---|---|---|---|
-| qwen3:0.6b dense | 0.6B | 0.5GB | — | 24 | 73.78 | **27.38** |
-| qwen3:0.6b dense | 0.6B | 0.5GB | — | 2232 | 49.90 | 12.56 |
-| qwen3:4b dense | 4B | 2.5GB | — | 24 | 20.04 | 7.19 |
-| qwen3:4b dense | 4B | 2.5GB | — | 2232 | 12.40 | 5.10 |
-| qwen3:8b dense | 8B | 5.2GB | 5.58GB | 24 | 77.13 | 4.79 |
-| qwen3:8b dense | 8B | 5.2GB | 5.69GB | 2250 | **8.13** | 3.69 |
-| qwen3:30b-a3b **MoE** | **3B** | 18GB | 17.81GB | 48 | 24.96 | **6.45** |
-| qwen3:30b-a3b **MoE** | **3B** | 18GB | 17.90GB | 2257 | 14.23 | **4.67** |
+### Everything else (retained, explicitly downgraded)
 
-### Four findings
+These rows have a **measured tok/s but a stale price**, so treat the speed as real and
+the ranking as void:
 
-**1. A 30B MoE decodes 35% faster than a dense 8B** (6.45 vs 4.79) while being 3.5×
-larger on disk. Active params drive decode; total params drive RAM only.
-**The dense 8B is the worst buy on the board** at $72.87/tok/s vs the 0.6B's $21.41.
-*Counter-finding:* the MoE degrades slightly faster with context (−27.6% vs −23.0%) —
-an earlier draft claimed the opposite; retracted.
+| device | tok/s | model | backend | price status |
+|---|---|---|---|---|
+| MacBook Pro M4 Max 128GB | 525.5 / 461.9 | Qwen3-0.6B / Llama-3.2-1B | MLX 4-bit | $3,599 unverified for 2026 |
+| Mac Mini M4 16GB | 30.6 | Llama 3.2 1B | llama.cpp | repriced to $799 |
+| Raspberry Pi 5 16GB | 19.4 / 18.4 | Qwen 2.5 0.5B / TinyLlama 1.1B | llama.cpp | repriced to $299.99 |
+| Raspberry Pi 5 + Hailo-10H | 11 | Llama 3 8B | HailoRT | $305 unverified |
 
-**2. The prefill wall nobody publishes.** qwen3:8b with a 2,250-token system prompt:
-**4 min 37 s of silence before the first token.** This is a batch device, not a chat
-device, above ~1B params.
-
-**3. ⚠️ The KV-cache trap.** Our own harness reported **2,899 tok/s prefill** — impossible.
-ollama reuses the KV cache on identical prompts, so `prompt_eval_duration` times a
-*cache hit*. Cold truth: **8.13 tok/s**. A **979× overstatement**. The trap: *adding
-repeats for statistical rigor is what caused it.* **Sanity rule: if prefill exceeds
-~20× measured decode on CPU, you are timing a cache.** Anyone benchmarking with
-llama.cpp/ollama should read [this section](./benchmarks/orangepi-6-plus/README.md#%EF%B8%8F-finding-3--the-kv-cache-trap-read-this-before-benchmarking-anything).
-
-**4. Local is not a cost play at this tier.** Qwen3-30B-A3B API is $0.048/$0.193 per M
-(StreamLake, cheapest of 7). At 1M output tokens/month the board pays back in **58 years**;
-at 100M/month it is *physically impossible* (826% duty cycle). It saturates at ~12M.
-Buy for data residency, never for savings.
-
-### Verified headroom, not yet claimed
-
-llama.cpp+Vulkan on the Mali G720 gives **2.3×** (4.3 → 9.9 tok/s) on this silicon.
-We confirmed our Mali exposes `QUEUE_COMPUTE_BIT` under Vulkan 1.3.275, so it is
-reachable on our stack. Not yet measured by us — blocked on dev packages.
+And these are **`ESTIMATED` — no source, do not quote**: Orange Pi 5 Pro/Max/Ultra/Plus,
+Radxa Rock 5B+ (all RAM tiers), Rock 5 ITX+, Rock 5T, Radxa X4, Radxa Orion O6,
+Jetson Orin Nano, and all MLX projections. **19 devices total.** See
+[`data/cost-perf-matrix-v6-first-party.csv`](./data/cost-perf-matrix-v6-first-party.csv).
 
 ---
 
@@ -111,36 +100,82 @@ reachable on our stack. Not yet measured by us — blocked on dev packages.
 | **9B (Qwen 3.5 9B)** | 12.5 tok/s | 3–5 tok/s | Reasoning, complex tasks |
 | **27B+ (Qwen 3.5 27B)** | 21 tok/s | not viable | Only on M4 Pro 24GB+ |
 
-**At 0.8B, every device in the catalog becomes genuinely usable for real-time chat (>15 tok/s reads as natural conversation).** The Mac Mini's lead collapses from 4–5× to ~5×, but cost-perf flips — **Raspberry Pi 5 at $80 is now the cheapest per tok/s**, not the Mac.
+**At 0.8B, every device in the catalog becomes genuinely usable for real-time chat (>15 tok/s reads as natural conversation).** That observation still holds. The *cost* conclusion that used to follow it does not: at Aug-2026 prices the cheapest-per-tok/s board is the one we measured ($9.82), not the Raspberry Pi ($15.46 at $299.99).
 
 For Red Cell distribution, KLCC procurement-AI pitch, and bulk office deployment: **0.8B is the right class.**
 
 ---
 
-## Headline findings (0.8B)
+## Headline findings
 
-1. **Raspberry Pi 5 at $80 is the new cost-perf champion.** 19.4 tok/s on Qwen 2.5 0.5B (DFRobot, measured). 8W load. 5-year TCO under $200.
-2. **Orange Pi 5 Pro at $109 is the best bang for buck.** RKLLama NPU hits ~28 tok/s. 6 TOPS + 16GB LPDDR5 + 10W. The NPU works at 0.8B because the model fits in cache.
-3. **The Mac Mini M4 16GB leads on absolute speed (525 tok/s on M4 Max).** At $599 with mature Ollama/MLX software, it's the safe enterprise choice. But at 0.8B, it's overkill for most use cases.
-4. **One Mac Mini M4 = 5 Orange Pi 5 Pro.** Both are real-time usable. The pitch: distribute SBCs everywhere, keep a Mac Mini for the heavy models.
-5. **NPU actually works at 0.8B but NOT at 9B+.** At 0.8B, the model fits in on-chip cache. RKLLama delivers ~28 tok/s. At 9B+, the model spills out of cache and the NPU becomes a bottleneck.
+*Rewritten 2026-08-27. The previous five findings were priced on a market that no
+longer exists; three of them were also built on unsourced numbers. Superseded list
+is preserved in git history.*
+
+**1. A 30B MoE decodes 35% faster than a dense 8B on ARM CPU.**
+Measured on our board: 6.45 vs 4.79 tok/s short-context, 4.67 vs 3.69 at 2.2k.
+The MoE is **3.5× larger on disk**. Active parameters (3B vs 8B) drive decode;
+total parameters drive RAM only. *"How big is the model"* is the wrong question.
+**This is the only finding here that price changes cannot invalidate** — it is a
+fact about architecture, not about DRAM.
+*Counter-finding:* the MoE degrades slightly **faster** with context (−27.6% vs
+−23.0%). An earlier draft claimed the opposite; retracted.
+
+**2. The dense 8B is the worst buy on the board.** $72.87/tok/s vs $21.41 for the
+0.6B and $57.58 for the 30B MoE. It looks perfectly reasonable on a spec sheet and
+loses on every measured axis. **Trap tier.**
+
+**3. The prefill wall nobody publishes.** qwen3:8b with a 2,250-token system prompt:
+**4 min 37 s of silence before the first token.** Then 3.69 tok/s. Above ~1B
+parameters this is a batch device, not a chat device. Every published SBC tok/s
+figure we could find is a short-prompt number.
+
+**4. Vendor NPU TOPS is unreachable for LLM decode.** Our board advertises 45 TOPS
+combined / 28.8–30 NPU. LLM inference reaches **none** of it — the Zhouyi NPU does
+not perform autoregressive decode at all (architectural, not a driver gap), and no
+mainstream runtime routes to NPUs anyway.
+**Buy on memory bandwidth and RAM capacity. Never on the TOPS number.**
+*This also retires the old finding #5 ("NPU works at 0.8B but not 9B+"), which was
+built on the unsourced ~28 tok/s figure.*
+
+**5. Local inference is not a cost play at this tier.** Qwen3-30B-A3B API costs
+$0.048/$0.193 per M tokens (StreamLake, cheapest of 7 providers). At 1M output
+tokens/month our $268.89 board pays back in **58 years**; at 100M/month it is
+*physically incapable* (826% duty cycle). It saturates around 12M.
+Buy for data residency, fixed-budget predictability, offline operation — never for
+savings.
+
+**6. The market moved more than the hardware did.** Between late 2025 and Apr 2026,
+SBC prices moved −20% to **+275%**. The Pi 5 16GB went $80 → $299.99; the Radxa X4
+went $79.96 → $265.99. Any local-AI cost analysis older than about three months is
+now wrong, including every earlier revision of this repo.
 
 ---
 
 ## Decision tree (for Red Cell + KLCC)
 
+⚠️ **Prices below are Aug-2026 and were moving fast.** Re-verify before quoting a client.
+
 ```
-Need 0.8B for:
-├─ Edge sensor / industrial IoT → Raspberry Pi 5 8GB ($60) + Hailo-10H
-├─ Every desk in a department → Orange Pi 5 Pro 16GB ($109) × N
-├─ 32GB+ LLM context (long RAG) → Orange Pi 6 Plus 32GB ($269) — batch, not chat
-├─ Mixed 0.8B–9B workflows → Mac Mini M4 16GB ($599)
-└─ Mixed 0.8B–32B / production → Mac Mini M4 Pro 24GB ($1,199)
+Need local inference for:
+├─ Interactive chat (>15 tok/s)     → 0.6B-class ONLY. Nothing bigger is interactive
+│                                     on an SBC. Our board: 27.4 tok/s, $9.82/tok/s.
+├─ Best quality on one SBC          → 30B MoE (3B active) on a 32GB board.
+│                                     4.67 tok/s at agent context. Batch workloads.
+├─ Anything >4B with a real prompt  → accept a 2-5 minute wait before the first
+│                                     token, or do not use an SBC.
+├─ Absolute speed, budget available → Mac Mini M4 ($799, was $599 — SKU discontinued)
+└─ Cheapest per tok/s today         → the 32GB CIX P1 board, by default, because the
+                                      cheap alternatives repriced above it.
 ```
 
-**For Red Cell distribution:** lead with **Orange Pi 5 Pro** at $109.
-**For KLCC pitch:** lead with **Mac Mini M4 16GB** at $599.
-**For Singular internal:** mix; one Mac Mini per team, Orange Pis for embedded features.
+**Honest position for Red Cell:** the "distribute cheap SBCs everywhere" pitch was
+built on $80–$109 boards. **Those prices are gone.** At $175–$309 per board the
+economics need re-deriving from scratch, and the API comparison (finding #5) says
+the case must rest on data residency, not cost.
+
+**For KLCC / procurement:** lead with data residency and predictable fixed cost.
+Do **not** lead with "cheaper than the API" — the arithmetic does not support it.
 
 ---
 
